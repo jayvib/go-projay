@@ -1,4 +1,4 @@
-package utilchecker
+package main
 
 import "os/exec"
 
@@ -7,7 +7,7 @@ func CheckDep() {
 }
 
 func isCommandAvailable(name string) bool {
-	cmd := exec.Command("/bin/sh", "-c", "command -v " + name)
+	cmd := exec.Command("/bin/sh", "-c", "command -v "+name)
 	if err := cmd.Run(); err != nil {
 		return false
 	}

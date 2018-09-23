@@ -1,4 +1,4 @@
-package go_projay
+package main
 
 type Project struct {
 	Name    string

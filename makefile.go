@@ -1,13 +1,13 @@
-package makefile
+package main
 
 import (
 	"io"
 	"os"
+	"path/filepath"
 	"text/template"
-	projay "go-projay"
 )
 
-func NewMakefileWriter(templatePath string, proj *projay.Project) (*MakefileWriter, error) {
+func NewMakefileWriter(templateName string, proj *Project) (*MakefileWriter, error) {
 	file, err := os.Create("Makefile")
 	if err != nil {
 		return nil, err
@@ -15,12 +15,12 @@ func NewMakefileWriter(templatePath string, proj *projay.Project) (*MakefileWrit
 	return &MakefileWriter{
 		project:      proj,
 		writerCloser: file,
-		tmpl:         template.Must(template.ParseFiles(templatePath)),
+		tmpl:         template.Must(template.ParseFiles(filepath.Join("templates", templateName))),
 	}, nil
 }
 
 type MakefileWriter struct {
-	project      *projay.Project
+	project      *Project
 	writerCloser io.WriteCloser
 	tmpl         *template.Template
 }
