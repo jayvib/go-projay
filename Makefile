@@ -1,6 +1,6 @@
 PKGS := $(shell go list ./... | grep -v /vendor/)
 SRC := $(shell find . -type f -name '*.go' -not -path "./vendor/*")
-APPNAME := testapp
+APPNAME := go-projay
 
 all: dep fmt build run
 
