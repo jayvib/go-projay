@@ -1,0 +1,25 @@
+PKGS := $(shell go list ./... | grep -v /vendor/)
+SRC := $(shell find . -type f -name '*.go' -not -path "./vendor/*")
+APPNAME := testapp
+
+all: dep fmt build run
+
+run:
+	./$(APPNAME)
+
+build:
+	@echo ">>>Building..."
+	go build -o $(APPNAME)
+
+$(PKGS): build
+
+dep:
+	@echo ">>>Synching dependency"
+	dep ensure
+
+fmt:
+	@echo ">>>Formating the project..."
+	@gofmt -l -w $(SRC)
+
+
+.PHONY: fmt dep build
